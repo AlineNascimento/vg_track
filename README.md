@@ -2,7 +2,7 @@
 
 To start our Application:
 
-## Instalação
+## Instalation
 
 ```http
 $ git clone url
