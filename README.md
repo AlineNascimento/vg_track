@@ -1,9 +1,21 @@
 # VgTrack
 
-To start your Phoenix server:
+To start our Application:
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
+## Instalação
+
+```http
+$ git clone url
+$ cd fusion
+$ cp config/dev.exs.example config/dev.exs
+$ cp config/test.exs.example config/test.exs
+$ mix deps.get
+$ mix ecto.create
+$ mix ecto.migrate
+$ MIX_ENV=test mix ecto.create
+$ MIX_ENV=test mix ecto.migrate
+```
+
   * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
