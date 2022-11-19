@@ -1,4 +1,4 @@
-defmodule VgTrack.Consoles do
+defmodule VgTrack.Consoles.Consoles do
   @moduledoc """
   The Consoles context.
   """

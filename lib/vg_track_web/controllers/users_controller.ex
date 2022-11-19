@@ -1,4 +1,4 @@
-defmodule VgTrackWeb.Users.UsersController do
+defmodule VgTrackWeb.UsersController do
   use VgTrackWeb, :controller
 
   alias VgTrack.Users.Users
