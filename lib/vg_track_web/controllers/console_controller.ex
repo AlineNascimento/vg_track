@@ -1,7 +1,7 @@
 defmodule VgTrackWeb.ConsoleController do
   use VgTrackWeb, :controller
 
-  alias VgTrack.Consoles
+  alias VgTrack.Consoles.Consoles
   alias VgTrack.Consoles.Console
 
   action_fallback VgTrackWeb.FallbackController
