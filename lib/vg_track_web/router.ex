@@ -9,7 +9,7 @@ defmodule VgTrackWeb.Router do
     pipe_through :api
 
     resources "/consoles", ConsoleController, except: [:new, :edit]
-    resources "/users", UserController, except: [:new, :edit]
+    resources "/users", UsersController, except: [:new, :edit]
 
   end
 

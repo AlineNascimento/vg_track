@@ -50,6 +50,7 @@ defmodule VgTrack.Consoles.Consoles do
 
   """
   def create_console(attrs \\ %{}) do
+    IO.inspect(attrs)
     %Console{}
     |> Console.changeset(attrs)
     |> Repo.insert()

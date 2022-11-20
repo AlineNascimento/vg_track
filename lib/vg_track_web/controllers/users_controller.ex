@@ -6,24 +6,26 @@ defmodule VgTrackWeb.UsersController do
 
   action_fallback VgTrackWeb.FallbackController
 
+
   def create(conn, params) do
     with {:ok, %User{} = user} <- Users.create_user(params) do
       conn
       |> put_status(:created)
-      |> render("user.json", user: user)
+      |> put_resp_header("location", Routes.console_path(conn, :show, user))
+      |> render("show.json", users: user)
     end
   end
 
   def show(conn, %{"id" => id}) do
     user = Users.get_user!(id)
-    render(conn, "show.json", user: user)
+    render(conn, "show.json", users: user)
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Users.get_user!(id)
 
     with {:ok, %User{} = user} <- Users.update_user(user, user_params) do
-      render(conn, "show.json", user: user)
+      render(conn, "show.json", users: user)
     end
   end
 
