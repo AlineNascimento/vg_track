@@ -9,7 +9,7 @@ defmodule VgTrackWeb.UsersController do
     with {:ok, %User{} = user} <- Users.create_user(params) do
       conn
       |> put_status(:created)
-      |> render("user.json", user: user)
+      |> render("show.json", user: user)
     end
   end
 end

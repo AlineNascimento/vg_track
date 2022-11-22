@@ -9,6 +9,7 @@ defmodule VgTrackWeb.Router do
     pipe_through :api
 
     resources "/consoles", ConsoleController, except: [:new, :edit]
+    resources "/users", UsersController, only: [:create]
   end
 
   # Enables LiveDashboard only for development
