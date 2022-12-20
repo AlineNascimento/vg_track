@@ -6,10 +6,16 @@ defmodule VgTrackWeb.UsersController do
 
   def create(conn, params) do
 
-    with {:ok, %User{} = user} <- Users.create_user(params) do
+    with {:ok, %User{} = users} <- Users.create_user(params) do
       conn
       |> put_status(:created)
-      |> render("show.json", user: user)
+      |> put_resp_header("location", Routes.console_path(conn, :show, users))
+      |> render("show.json", users: users)
     end
+  end
+
+  def show(conn, params) do
+    user = Users.get_user!(params)
+    render(conn, "show.json", users: user)
   end
 end

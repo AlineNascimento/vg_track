@@ -1,17 +1,17 @@
-defmodule VgTrackWeb.UserView do
+defmodule VgTrackWeb.UsersView do
   use VgTrackWeb, :view
-  alias VgTrackWeb.UserView
+  alias VgTrackWeb.UsersView
 
 
-  def render("show.json", %{user: user}) do
-    %{data: render_one(user, UserView, "user.json")}
+  def render("show.json", %{users: users}) do
+    %{data: render_one(users, UsersView, "users.json")}
   end
 
-  def render("user.json", %{user: user}) do
+  def render("users.json", %{users: users}) do
     %{
-      id: user.id,
-      name: user.name,
-      email: user.email
+      id: users.id,
+      name: users.name,
+      email: users.email
     }
   end
 end

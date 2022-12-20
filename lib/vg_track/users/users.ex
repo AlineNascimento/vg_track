@@ -13,4 +13,8 @@ defmodule VgTrack.Users.Users do
     |> User.changeset(attrs)
     |> Repo.insert()
   end
+
+  def get_user!(%{"id" => id}) do
+    Repo.get!(User, id)
+  end
 end

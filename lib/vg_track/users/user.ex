@@ -28,8 +28,8 @@ defmodule VgTrack.Users.User do
 
   def changeset(user, attrs) do
     user
-    |> cast(attrs, @required_fields)
-    |> validate_required(@required_fields)
+    |> cast(attrs, [:email, :name, :password])
+    |> validate_required([:email, :name, :password])
     |> unique_constraint([:email], name: "users_email_index")
   end
 
