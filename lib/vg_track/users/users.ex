@@ -13,4 +13,23 @@ defmodule VgTrack.Users.Users do
     |> User.changeset(attrs)
     |> Repo.insert()
   end
+
+  def get_user!(%{"id" => id}) do
+    Repo.get!(User, id)
+  end
+
+  def delete_user(%{"id" => id}) do
+    user = Repo.get!(User, id)
+    Repo.delete(user)
+  end
+
+  def list_users() do
+    Repo.all(User)
+  end
+
+  def update_user(attrs) do
+    user = Repo.get(User, attrs["id"])
+    |> User.changeset(attrs)
+    |> Repo.update()
+  end
 end

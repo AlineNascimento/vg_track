@@ -1,7 +1,7 @@
 defmodule VgTrackWeb.ConsoleController do
   use VgTrackWeb, :controller
 
-  alias VgTrack.Consoles
+  alias VgTrack.Consoles.Consoles
   alias VgTrack.Consoles.Console
 
   action_fallback VgTrackWeb.FallbackController
@@ -11,7 +11,7 @@ defmodule VgTrackWeb.ConsoleController do
     render(conn, "index.json", consoles: consoles)
   end
 
-  def create(conn, %{"console" => console_params}) do
+  def create(conn, console_params) do
     with {:ok, %Console{} = console} <- Consoles.create_console(console_params) do
       conn
       |> put_status(:created)
@@ -25,9 +25,8 @@ defmodule VgTrackWeb.ConsoleController do
     render(conn, "show.json", console: console)
   end
 
-  def update(conn, %{"id" => id, "console" => console_params}) do
-    console = Consoles.get_console!(id)
-
+  def update(conn, console_params) do
+    console = Consoles.get_console!(console_params["id"])
     with {:ok, %Console{} = console} <- Consoles.update_console(console, console_params) do
       render(conn, "show.json", console: console)
     end
