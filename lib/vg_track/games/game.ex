@@ -3,6 +3,7 @@ defmodule VgTrack.Games.Game do
   import Ecto.Changeset
 
   alias VgTrack.Consoles.Console
+  alias VgTrack.UsersGames.UserGame
   alias __MODULE__
 
   @type t :: %__MODULE__{
@@ -19,6 +20,7 @@ defmodule VgTrack.Games.Game do
     field :year, :string
 
     belongs_to(:console, Console)
+    has_many(:user_game, UserGame)
     timestamps()
   end
 

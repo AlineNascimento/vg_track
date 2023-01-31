@@ -5,6 +5,7 @@ defmodule VgTrack.Users.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias VgTrack.UsersGames.UserGame
   alias __MODULE__
 
   @type t :: %__MODULE__{
@@ -23,6 +24,7 @@ defmodule VgTrack.Users.User do
     field :email, :string
     field :password, :string
 
+    has_many(:user_game, UserGame)
     timestamps()
   end
 
