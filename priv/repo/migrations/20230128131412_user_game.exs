@@ -2,7 +2,6 @@ defmodule VgTrack.Repo.Migrations.UserGame do
   use Ecto.Migration
 
   def change do
-
     create table(:user_game) do
       add :completed, :boolean, null: false
       add :level, :string, null: false

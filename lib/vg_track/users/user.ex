@@ -9,13 +9,13 @@ defmodule VgTrack.Users.User do
   alias __MODULE__
 
   @type t :: %__MODULE__{
-    id: integer(),
-    name: binary(),
-    email: binary(),
-    password: binary(),
-    inserted_at: NaiveDateTime.t(),
-    updated_at: NaiveDateTime.t()
-  }
+          id: integer(),
+          name: binary(),
+          email: binary(),
+          password: binary(),
+          inserted_at: NaiveDateTime.t(),
+          updated_at: NaiveDateTime.t()
+        }
 
   @required_fields ~w(email)
 
@@ -34,5 +34,4 @@ defmodule VgTrack.Users.User do
     |> validate_required([:email, :name, :password])
     |> unique_constraint([:email], name: "users_email_index")
   end
-
 end

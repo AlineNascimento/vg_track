@@ -1,5 +1,4 @@
 defmodule VgTrack.Games.Games do
-
   import Ecto.Query, warn: false
 
   alias VgTrack.Games.Game
@@ -17,7 +16,7 @@ defmodule VgTrack.Games.Games do
     Repo.all(Game)
   end
 
-   def update_game(%Game{} = game, attrs) do
+  def update_game(%Game{} = game, attrs) do
     game
     |> Game.changeset(attrs)
     |> Repo.update()

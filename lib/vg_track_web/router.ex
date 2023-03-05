@@ -11,6 +11,7 @@ defmodule VgTrackWeb.Router do
     resources "/consoles", ConsoleController, except: [:new, :edit]
     resources "/users", UsersController, except: [:new, :edit]
     resources "/games", GameController, except: [:new, :edit]
+    get "/users_games/user_id/:user_id", UsersGamesController, :list_games_user
   end
 
   # Enables LiveDashboard only for development

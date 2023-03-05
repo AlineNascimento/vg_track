@@ -18,8 +18,10 @@ defmodule VgTrack.UsersGames.UsersGames do
     Repo.get!(UserGame, id)
   end
 
-  def get_relation(user_id, game_id)  do
-    from( user_game in UserGame, where: user_game.user_id == ^user_id and user_game.game_id == ^game_id)
+  def get_relation(user_id, game_id) do
+    from(user_game in UserGame,
+      where: user_game.user_id == ^user_id and user_game.game_id == ^game_id
+    )
     |> Repo.one()
   end
 
@@ -33,18 +35,19 @@ defmodule VgTrack.UsersGames.UsersGames do
   end
 
   def list_user_games(user_id) do
-    from( user_game in UserGame, where: user_game.user_id == ^user_id )
+    from(user_game in UserGame, where: user_game.user_id == ^user_id)
     |> Repo.all()
   end
 
   def list_game_users(game_id) do
-    from( user_game in UserGame, where: user_game.game_id == ^game_id )
+    from(user_game in UserGame, where: user_game.game_id == ^game_id)
     |> Repo.all()
   end
 
   def update_user_game(attrs) do
-    user_game = Repo.get(UserGame, attrs["id"])
-    |> User.changeset(attrs)
-    |> Repo.update()
+    user_game =
+      Repo.get(UserGame, attrs["id"])
+      |> User.changeset(attrs)
+      |> Repo.update()
   end
 end

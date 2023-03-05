@@ -7,13 +7,13 @@ defmodule VgTrack.Games.Game do
   alias __MODULE__
 
   @type t :: %__MODULE__{
-    id: integer(),
-    title: binary(),
-    year: binary(),
-    console_id: integer(),
-    inserted_at: NaiveDateTime.t(),
-    updated_at: NaiveDateTime.t()
-  }
+          id: integer(),
+          title: binary(),
+          year: binary(),
+          console_id: integer(),
+          inserted_at: NaiveDateTime.t(),
+          updated_at: NaiveDateTime.t()
+        }
 
   schema "games" do
     field :title, :string
@@ -30,5 +30,4 @@ defmodule VgTrack.Games.Game do
     |> validate_required([:title, :year, :console_id])
     |> unique_constraint([:title, :year], name: "games_title_year_index")
   end
-
 end

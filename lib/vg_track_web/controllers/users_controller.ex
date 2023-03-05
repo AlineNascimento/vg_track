@@ -5,7 +5,6 @@ defmodule VgTrackWeb.UsersController do
   alias VgTrack.Users.User
 
   def create(conn, params) do
-
     with {:ok, %User{} = users} <- Users.create_user(params) do
       conn
       |> put_status(:created)
