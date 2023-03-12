@@ -3,9 +3,9 @@ defmodule VgTrackWeb.UsersGamesView do
 
   alias VgTrackWeb.UsersGamesView
 
-  # def render("index.json", %{games: games}) do
-  #   render_many(games, GameView, "game.json")
-  # end
+  def render("index.json", %{games: games}) do
+    render_many(games, GameView, "users_games.json")
+  end
 
   def render("show.json", %{users_games: users_games}) do
     render_one(users_games, UsersGamesView, "users_games.json")
@@ -24,7 +24,7 @@ defmodule VgTrackWeb.UsersGamesView do
   # Render list of game data
 
   def render("games_list.json", %{games_list: games_list}) do
-    render_many(games_list, UsersGamesView, "game.json")
+    render_many(games_list, UsersGamesView, "game.json", as: :game)
   end
 
   def render("show_game.json", %{game: game}) do
