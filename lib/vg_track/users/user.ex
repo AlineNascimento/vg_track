@@ -29,8 +29,8 @@ defmodule VgTrack.Users.User do
     IO.puts("Dentro do Changeset")
     IO.inspect(attrs)
     user
-    |> cast(attrs, [:name, :email, :password])
-    |> validate_required([:name, :email, :password])
+    |> cast(attrs, [:email, :name, :password])
+    |> validate_required([:email, :name, :password])
     |> unique_constraint([:email], name: "users_email_index")
   end
 

@@ -27,9 +27,8 @@ defmodule VgTrackWeb.ConsoleController do
     render(conn, "show.json", console: console)
   end
 
-  def update(conn, %{"id" => id, "console" => console_params}) do
-    console = Consoles.get_console!(id)
-
+  def update(conn, console_params) do
+    console = Consoles.get_console!(console_params["id"])
     with {:ok, %Console{} = console} <- Consoles.update_console(console, console_params) do
       render(conn, "show.json", console: console)
     end
