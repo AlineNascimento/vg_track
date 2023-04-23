@@ -16,7 +16,6 @@ defmodule VgTrackWeb.UsersGamesView do
       id: users_games.id,
       user_id: users_games.user_id,
       game_id: users_games.game_id,
-      console_id: users_games.console_id,
       completed: users_games.completed
     }
   end
@@ -33,14 +32,15 @@ defmodule VgTrackWeb.UsersGamesView do
 
   def render("game.json", %{game: game}) do
     %{
-        users_games_id: game.users_games_id,
-        title: game.title,
-        year: game.year,
-        name: game.name,
-        completed_at: game.completed_at,
-        completed: game.completed,
-        level: game.level,
-        personal_notes: game.personal_notes
-      }
+      users_games_id: game.users_games_id,
+      game_id: game.game_id,
+      title: game.title,
+      year: game.year,
+      console_name: game.console_name,
+      completed_at: game.completed_at,
+      completed: game.completed,
+      level: game.level,
+      personal_notes: game.personal_notes
+    }
   end
 end

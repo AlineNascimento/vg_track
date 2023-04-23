@@ -16,9 +16,11 @@ defmodule VgTrack.Users.Users do
 
   def get_user(%{"id" => id}) do
     IO.inspect(Repo.get(User, id))
+
     case Repo.get(User, id) do
       %User{} = user ->
         {:ok, user}
+
       nil ->
         {:error, :not_found}
     end
