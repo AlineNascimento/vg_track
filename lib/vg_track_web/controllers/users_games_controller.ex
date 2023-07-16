@@ -80,5 +80,12 @@ defmodule VgTrackWeb.UsersGamesController do
     end
   end
 
+  def list_games_user_filtered(conn, params) do
+    with {:ok, user} <- Users.get_user(%{"id" => params["user_id"]}),
+          filtered_games_list <- Business.list_user_related_games(user.id, params["title"]) do
+          render(conn, "games_list.json", games_list: filtered_games_list)
+    end
+  end
+
   # Filtrar o nome do jogo e alguns campos de user_game
 end
