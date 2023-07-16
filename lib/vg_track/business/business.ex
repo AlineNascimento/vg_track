@@ -2,7 +2,9 @@ defmodule VgTrack.Business.Business do
   @moduledoc """
   The User context
   """
+  # use Ecto.Repo
   import Ecto.Query, warn: false
+  
 
   alias VgTrack.UsersGames.UserGame
   alias VgTrack.Consoles.Console
@@ -59,6 +61,7 @@ defmodule VgTrack.Business.Business do
       join: console in Console,
       on: game.console_id == console.id,
       where: user_game.user_id == ^user_id,
+      order_by: [desc: user_game.completed_at],  # Adicionando a ordenação por completed_at
       select: %{
         users_games_id: user_game.id,
         game_id: user_game.game_id,
@@ -74,20 +77,32 @@ defmodule VgTrack.Business.Business do
     |> Repo.all()
   end
 
-  def list_and_filter_group_game_data(user_id, %{"title" => title}) do
-    with users_games <- UsersGames.list_user_games(user_id),
-         games_ids <- transform_list_of_maps_in_games_list(users_games),
-         games <- Games.get_games_with_title(title, users_games),
-         consoles <- Consoles.get_consoles_by_list_with_id(games) do
-      IO.puts('consoles:')
-      IO.inspect(consoles)
-    end
-  end
+  # def list_and_filter_group_game_data(user_id, %{"title" => title}) do
+  #   with users_games <- UsersGames.list_user_games(user_id),
+  #        games_ids <- transform_list_of_maps_in_games_list(users_games),
+  #        games <- Games.get_games_with_title(title, users_games),
+  #        consoles <- Consoles.get_consoles_by_list_with_id(games) do
+  #     IO.puts('consoles:')
+  #     IO.inspect(consoles)
+  #   end
+  # end
 
   # VgTrack.Business.Business.list_and_filter_group_game_data(1, %{"title" => "title"})
 
   defp transform_list_of_maps_in_games_list(list_of_maps) do
     Enum.map(list_of_maps, fn map -> map.game_id end)
+  end
+
+  def list_user_related_games(user_id, title) do
+    query =
+      from g in VgTrack.Games.Game,
+      join: u in assoc(g, :user_game),
+      where: u.user_id == ^user_id and ilike(g.title, ^"%#{title}%"),
+      preload: [:console, :user_game]
+
+    IO.inspect(VgTrack.Repo.all(query))
+
+    VgTrack.Repo.all(query)
   end
 
   # defp transform_list_of_maps_in_games_list(list_of_maps) do

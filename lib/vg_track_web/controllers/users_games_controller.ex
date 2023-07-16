@@ -30,6 +30,7 @@ defmodule VgTrackWeb.UsersGamesController do
       "personal_notes" => params["personal_notes"]
     }
 
+
     with {:ok, %Game{} = game} <- Games.create_game(game_params),
          user_game_params <- Map.put(user_game_params, "game_id", game.id),
          {:ok, %UserGame{} = users_games} <- UsersGames.create_user_game(user_game_params),

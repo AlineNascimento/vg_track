@@ -40,12 +40,12 @@ defmodule VgTrack.Games.Games do
     Enum.filter(complete_data_list, fn map ->
       # Map.put(map, :console_name, console.name)
       # TODO: - Ajustar/validar se o jogo é criado quando é criado o user_game
-      case !!game do
-        true ->
-      Map.merge(map, game)
-        false ->
-          false
-      end
+      # case !!game do
+      #   true ->
+      # Map.merge(map, game)
+      #   false ->
+      #     false
+      # end
     end)
 
     # from(game in Game,
