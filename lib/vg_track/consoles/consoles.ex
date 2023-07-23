@@ -102,4 +102,12 @@ defmodule VgTrack.Consoles.Consoles do
   def change_console(%Console{} = console, attrs \\ %{}) do
     Console.changeset(console, attrs)
   end
+
+  def get_consoles_by_list_with_id(games) do
+    Enum.map(games, fn map ->
+      console = get_console!(map.console_id)
+
+      Map.put(map, :console_name, console.name)
+    end)
+  end
 end

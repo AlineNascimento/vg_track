@@ -4,8 +4,7 @@ defmodule VgTrackWeb.UsersController do
   alias VgTrack.Users.Users
   alias VgTrack.Users.User
 
-  action_fallback VgTrackWeb.FallbackController
-
+  def create(conn, params) do
     with {:ok, %User{} = users} <- Users.create_user(params) do
       conn
       |> put_status(:created)

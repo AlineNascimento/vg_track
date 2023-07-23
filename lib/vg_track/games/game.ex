@@ -3,22 +3,24 @@ defmodule VgTrack.Games.Game do
   import Ecto.Changeset
 
   alias VgTrack.Consoles.Console
+  alias VgTrack.UsersGames.UserGame
   alias __MODULE__
 
   @type t :: %__MODULE__{
-    id: integer(),
-    title: binary(),
-    year: binary(),
-    console_id: integer(),
-    inserted_at: NaiveDateTime.t(),
-    updated_at: NaiveDateTime.t()
-  }
+          id: integer(),
+          title: binary(),
+          year: binary(),
+          console_id: integer(),
+          inserted_at: NaiveDateTime.t(),
+          updated_at: NaiveDateTime.t()
+        }
 
   schema "games" do
     field :title, :string
     field :year, :string
 
     belongs_to(:console, Console)
+    has_many(:user_game, UserGame)
     timestamps()
   end
 
@@ -28,5 +30,4 @@ defmodule VgTrack.Games.Game do
     |> validate_required([:title, :year, :console_id])
     |> unique_constraint([:title, :year], name: "games_title_year_index")
   end
-
 end

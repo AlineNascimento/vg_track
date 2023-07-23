@@ -2,7 +2,6 @@ defmodule VgTrack.Repo.Migrations.Games do
   use Ecto.Migration
 
   def change do
-
     create table(:games) do
       add :title, :string, null: false
       add :year, :string, null: false
@@ -10,6 +9,7 @@ defmodule VgTrack.Repo.Migrations.Games do
 
       timestamps()
     end
+
     create index("games", [:title, :year], unique: true)
   end
 end
