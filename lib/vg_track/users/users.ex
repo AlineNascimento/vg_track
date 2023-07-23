@@ -1,6 +1,6 @@
 defmodule VgTrack.Users.Users do
   @moduledoc """
-  The User context
+  The Users context
   """
 
   import Ecto.Query, warn: false
@@ -9,6 +9,7 @@ defmodule VgTrack.Users.Users do
   alias VgTrack.Repo
 
   def create_user(attrs \\ %{}) do
+    IO.inspect(attrs)
     %User{}
     |> User.changeset(attrs)
     |> Repo.insert()

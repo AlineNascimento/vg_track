@@ -17,8 +17,6 @@ defmodule VgTrack.Users.User do
           updated_at: NaiveDateTime.t()
         }
 
-  @required_fields ~w(email)
-
   schema "users" do
     field :name, :string
     field :email, :string
@@ -29,6 +27,9 @@ defmodule VgTrack.Users.User do
   end
 
   def changeset(user, attrs) do
+    IO.inspect(user)
+    IO.puts("Dentro do Changeset")
+    IO.inspect(attrs)
     user
     |> cast(attrs, [:email, :name, :password])
     |> validate_required([:email, :name, :password])
