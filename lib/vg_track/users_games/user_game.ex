@@ -11,7 +11,7 @@ defmodule VgTrack.UsersGames.UserGame do
           id: integer(),
           user_id: integer(),
           game_id: integer(),
-          completed_at: NaiveDateTime.t(),
+          completed_at: binary(),
           completed: boolean(),
           level: binary(),
           personal_notes: binary(),
@@ -20,7 +20,7 @@ defmodule VgTrack.UsersGames.UserGame do
         }
 
   schema "user_game" do
-    field :completed_at, :naive_datetime
+    field :completed_at, :string
     field :completed, :boolean
     field :level, :string
     field :personal_notes, :string
@@ -32,7 +32,7 @@ defmodule VgTrack.UsersGames.UserGame do
 
   def changeset(user_game, attrs) do
     user_game
-    |> cast(attrs, [:completed, :level, :personal_notes, :user_id, :game_id])
+    |> cast(attrs, [:completed, :level, :personal_notes, :user_id, :game_id, :completed_at])
     |> validate_required([:completed, :level, :user_id, :game_id])
     |> unique_constraint([:user_id, :game_id], name: "user_game_user_id_game_id_index")
   end
