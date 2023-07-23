@@ -5,7 +5,6 @@ defmodule VgTrack.Business.Business do
   # use Ecto.Repo
   import Ecto.Query, warn: false
 
-
   alias VgTrack.UsersGames.UserGame
   alias VgTrack.Consoles.Console
   alias VgTrack.Games.Game
@@ -55,25 +54,28 @@ defmodule VgTrack.Business.Business do
   def list_group_game_data(user_id) do
     IO.inspect(user_id)
 
-    query = from(user_game in UserGame,
-      join: game in Game,
-      on: user_game.game_id == game.id,
-      join: console in Console,
-      on: game.console_id == console.id,
-      where: user_game.user_id == ^user_id,
-      order_by: [desc: user_game.completed_at],  # Adicionando a ordenação por completed_at
-      select: %{
-        users_games_id: user_game.id,
-        game_id: user_game.game_id,
-        title: game.title,
-        year: game.year,
-        console_name: console.name,
-        completed_at: user_game.completed_at,
-        completed: user_game.completed,
-        level: user_game.level,
-        personal_notes: user_game.personal_notes
-      }
-    )
+    query =
+      from(user_game in UserGame,
+        join: game in Game,
+        on: user_game.game_id == game.id,
+        join: console in Console,
+        on: game.console_id == console.id,
+        where: user_game.user_id == ^user_id,
+        # Adicionando a ordenação por completed_at
+        order_by: [desc: user_game.completed_at],
+        select: %{
+          users_games_id: user_game.id,
+          game_id: user_game.game_id,
+          title: game.title,
+          year: game.year,
+          console_name: console.name,
+          completed_at: user_game.completed_at,
+          completed: user_game.completed,
+          level: user_game.level,
+          personal_notes: user_game.personal_notes
+        }
+      )
+
     IO.inspect(VgTrack.Repo.all(query))
     # |> Repo.all()
   end
@@ -94,23 +96,25 @@ defmodule VgTrack.Business.Business do
     Enum.map(list_of_maps, fn map -> map.game_id end)
   end
 
-  def list_user_related_games(user_id, title) do
+  def list_user_related_games(user_id, filter_param) do
     query =
       from g in VgTrack.Games.Game,
-      join: u in assoc(g, :user_game),
-      join: c in assoc(g, :console),
-      where: u.user_id == ^user_id and ilike(g.title, ^"%#{title}%"),
-      select: %{
-        users_games_id: u.id,
-        game_id: u.game_id,
-        title: g.title,
-        year: g.year,
-        console_name: c.name,
-        completed_at: u.completed_at,
-        completed: u.completed,
-        level: u.level,
-        personal_notes: u.personal_notes
-      }
+        join: u in assoc(g, :user_game),
+        join: c in assoc(g, :console),
+        where:
+          (u.user_id == ^user_id and ilike(g.title, ^"%#{filter_param}%")) or
+            ilike(g.year, ^"%#{filter_param}%") or ilike(u.completed_at, ^"%#{filter_param}%"),
+        select: %{
+          users_games_id: u.id,
+          game_id: u.game_id,
+          title: g.title,
+          year: g.year,
+          console_name: c.name,
+          completed_at: u.completed_at,
+          completed: u.completed,
+          level: u.level,
+          personal_notes: u.personal_notes
+        }
 
     VgTrack.Repo.all(query)
   end

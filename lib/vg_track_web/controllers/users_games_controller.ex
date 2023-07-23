@@ -30,7 +30,6 @@ defmodule VgTrackWeb.UsersGamesController do
       "personal_notes" => params["personal_notes"]
     }
 
-
     with {:ok, %Game{} = game} <- Games.create_game(game_params),
          user_game_params <- Map.put(user_game_params, "game_id", game.id),
          {:ok, %UserGame{} = users_games} <- UsersGames.create_user_game(user_game_params),
@@ -82,8 +81,8 @@ defmodule VgTrackWeb.UsersGamesController do
 
   def list_games_user_filtered(conn, params) do
     with {:ok, user} <- Users.get_user(%{"id" => params["user_id"]}),
-          filtered_games_list <- Business.list_user_related_games(user.id, params["title"]) do
-          render(conn, "games_list.json", games_list: filtered_games_list)
+         filtered_games_list <- Business.list_user_related_games(user.id, params["filter_param"]) do
+      render(conn, "games_list.json", games_list: filtered_games_list)
     end
   end
 
