@@ -104,6 +104,7 @@ defmodule VgTrack.Business.Business do
         where:
           (u.user_id == ^user_id and ilike(g.title, ^"%#{filter_param}%")) or
             ilike(g.year, ^"%#{filter_param}%") or ilike(u.completed_at, ^"%#{filter_param}%"),
+        order_by: [desc: g.year],
         select: %{
           users_games_id: u.id,
           game_id: u.game_id,
