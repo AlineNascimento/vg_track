@@ -18,6 +18,8 @@ defmodule VgTrackWeb.Router do
     get "/users_games/user_id/:user_id/:filter_param",
         UsersGamesController,
         :list_games_user_filtered
+
+    post "/login", AuthController, :create
   end
 
   # Enables LiveDashboard only for development

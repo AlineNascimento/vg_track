@@ -1,12 +1,27 @@
-defmodule VgTrack.Users.Users do
+defmodule VgTrack.Auth.Login do
   @moduledoc """
-  The Users context
+  The Login context
   """
 
   import Ecto.Query, warn: false
 
   alias VgTrack.Users.User
   alias VgTrack.Repo
+
+  def login(attrs) do
+    with %User{} = user when not is_nil(user) <- Repo.get_by(User, email: attrs["email"]),
+         true <- user.password == attrs["password"] do
+      {:ok, %{session_id: "session_id", user_name: user.name, user_email: user.email}}
+    else
+      nil ->
+        {:error, :not_found}
+
+      false ->
+        {:error, :not_found}
+    end
+  end
+
+  # VgTrack.Auth.Login.login(%{ "email" => "email@email.com.wkjlo,mns0", "password" => "123"})
 
   def create_user(attrs \\ %{}) do
     IO.inspect(attrs)

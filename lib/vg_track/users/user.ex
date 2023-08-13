@@ -30,6 +30,7 @@ defmodule VgTrack.Users.User do
     IO.inspect(user)
     IO.puts("Dentro do Changeset")
     IO.inspect(attrs)
+
     user
     |> cast(attrs, [:email, :name, :password])
     |> validate_required([:email, :name, :password])

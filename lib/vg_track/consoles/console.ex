@@ -11,6 +11,7 @@ defmodule VgTrack.Consoles.Console do
   @doc false
   def changeset(console, attrs) do
     IO.inspect(console)
+
     console
     |> cast(attrs, [:name])
     |> validate_required([:name])

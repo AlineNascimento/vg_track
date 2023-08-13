@@ -7,7 +7,6 @@ defmodule VgTrackWeb.UsersView do
   end
 
   def render("show.json", %{users: users}) do
-
     %{data: render_one(users, UsersView, "users.json")}
   end
 
