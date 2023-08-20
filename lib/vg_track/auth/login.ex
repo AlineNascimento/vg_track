@@ -21,8 +21,6 @@ defmodule VgTrack.Auth.Login do
     end
   end
 
-  # VgTrack.Auth.Login.login(%{ "email" => "email@email.com.wkjlo,mns0", "password" => "123"})
-
   def create_user(attrs \\ %{}) do
     IO.inspect(attrs)
 
@@ -41,25 +39,5 @@ defmodule VgTrack.Auth.Login do
       nil ->
         {:error, :not_found}
     end
-  end
-
-  def get_user!(%{"id" => id}) do
-    Repo.get!(User, id)
-  end
-
-  def delete_user(%{"id" => id}) do
-    user = Repo.get!(User, id)
-    Repo.delete(user)
-  end
-
-  def list_users() do
-    Repo.all(User)
-  end
-
-  def update_user(attrs) do
-    user =
-      Repo.get(User, attrs["id"])
-      |> User.changeset(attrs)
-      |> Repo.update()
   end
 end

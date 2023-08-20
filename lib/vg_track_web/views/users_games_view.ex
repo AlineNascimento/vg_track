@@ -8,6 +8,8 @@ defmodule VgTrackWeb.UsersGamesView do
   end
 
   def render("show.json", %{users_games: users_games}) do
+    IO.puts('here ->')
+    IO.inspect(users_games)
     render_one(users_games, UsersGamesView, "users_games.json")
   end
 
