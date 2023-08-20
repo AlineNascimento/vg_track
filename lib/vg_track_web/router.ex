@@ -20,6 +20,8 @@ defmodule VgTrackWeb.Router do
         :list_games_user_filtered
 
     post "/login", AuthController, :create
+
+    resources "/session", SessionController, except: [:new, :edit, :index, :show]
   end
 
   # Enables LiveDashboard only for development

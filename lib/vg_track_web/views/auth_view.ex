@@ -14,7 +14,7 @@ defmodule VgTrackWeb.AuthView do
   end
 
   def render("show.json", %{login_params: login_params}) do
-     render_one(login_params, AuthView)
+    render_one(login_params, AuthView)
   end
 
   # def render("login_params.json", %{login_params: login_params}) do
