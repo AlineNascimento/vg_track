@@ -6,12 +6,16 @@ defmodule VgTrack.Auth.Login do
   import Ecto.Query, warn: false
 
   alias VgTrack.Users.User
+  alias VgTrack.Sessions.Sessions
   alias VgTrack.Repo
 
   def login(attrs) do
     with %User{} = user when not is_nil(user) <- Repo.get_by(User, email: attrs["email"]),
-         true <- user.password == attrs["password"] do
-      {:ok, %{session_id: "session_id", user_name: user.name, user_email: user.email}}
+         true <- user.password == attrs["password"],
+         {:ok, session} <- Sessions.create_session(%{"user_id" => user.id}) do
+          IO.puts("Here:")
+          IO.inspect(session.id)
+      {:ok, %{session_id: session.id, user_name: user.name, user_email: user.email}}
     else
       nil ->
         {:error, :not_found}

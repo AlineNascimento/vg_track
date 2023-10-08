@@ -19,7 +19,7 @@ defmodule VgTrackWeb.SessionController do
   # end
 
   def delete(conn, params) do
-    with {:ok, %Session{} = session} <- Sessions.delete_user(params) do
+    with {:ok, %Session{} = _session} <- Sessions.delete_session(params) do
       send_resp(conn, :no_content, "")
     end
   end
@@ -30,7 +30,7 @@ defmodule VgTrackWeb.SessionController do
   # end
 
   def update(conn, params) do
-    with {:ok, %Session{} = session} <- Sessions.update_user(params) do
+    with {:ok, %Session{} = session} <- Sessions.update_session(params) do
       render(conn, "show.json", session: session)
     end
   end
