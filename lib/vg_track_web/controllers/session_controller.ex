@@ -30,7 +30,7 @@ defmodule VgTrackWeb.SessionController do
   # end
 
   def update(conn, params) do
-    with {:ok, %Session{} = session} <- Sessions.update_session(params) do
+    with {:ok, %Session{} = session} <- Sessions.verify_session(params) do
       render(conn, "show.json", session: session)
     end
   end

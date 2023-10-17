@@ -13,9 +13,7 @@ defmodule VgTrack.Auth.Login do
     with %User{} = user when not is_nil(user) <- Repo.get_by(User, email: attrs["email"]),
          true <- user.password == attrs["password"],
          {:ok, session} <- Sessions.create_session(%{"user_id" => user.id}) do
-          IO.puts("Here:")
-          IO.inspect(session.id)
-      {:ok, %{session_id: session.id, user_name: user.name, user_email: user.email}}
+      {:ok, %{session_id: session.id, user_name: user.name, user_email: user.email, user_id: user.id}}
     else
       nil ->
         {:error, :not_found}

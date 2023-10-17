@@ -20,6 +20,38 @@ defmodule VgTrack.Sessions.Sessions do
     end
   end
 
+  def verify_session(attrs) do
+    case get_session(%{"id" => attrs["session_id"]}) do
+      {:ok, session} ->
+        time_diff = NaiveDateTime.diff(NaiveDateTime.utc_now(), session.updated_at)
+        time_hours = div(time_diff, 3600)
+
+        case time_hours do
+          hours when hours < 24 ->
+            # atualizar o updated_at com data atual; retorna o session_id
+            update_session(%{"id" => session.id, "updated_at" => NaiveDateTime.utc_now()})
+            {:ok, session.id}
+
+          hours when hours > 24 and hours < 48 ->
+            # cria nova sessão; retorna o session_id novo; exclui sessao antiga
+            {:ok, new_session} = create_session(%{"user_id" => attrs["user_id"]})
+            delete_session(%{"id" => session.id})
+            {:ok, new_session.id}
+
+          hours when hours > 48 ->
+            # retorna :ok e que sessão expirou; exclusão da sessão; status 401
+            delete_session(%{"id" => session.id})
+            {:error, :unauthorized}
+        end
+
+      {:error, :not_found} ->
+        {:error, :unauthorized}
+    end
+  end
+
+  # test_map = %{"session_id" => 10, "user_id" => 1}
+  # VgTrack.Sessions.Sessions.verify_session(test_map)
+
   def get_session!(%{"id" => id}) do
     Repo.get!(Session, id)
   end

@@ -4,10 +4,11 @@ defmodule VgTrackWeb.AuthView do
   alias VgTrackWeb.AuthView
 
   def render_one(login_params, _opts) do
-    %{session_id: session_id, user_name: user_name, user_email: user_email} = login_params
+    %{session_id: session_id, user_name: user_name, user_email: user_email, user_id: user_id} = login_params
 
     %{
-      "id" => session_id,
+      "session_id" => session_id,
+      "user_id" => user_id,
       "name" => user_name,
       "email" => user_email
     }
