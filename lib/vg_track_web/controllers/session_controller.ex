@@ -3,6 +3,7 @@ defmodule VgTrackWeb.SessionController do
 
   alias VgTrack.Sessions.Sessions
   alias VgTrack.Sessions.Session
+  action_fallback VgTrackWeb.FallbackController
 
   def create(conn, params) do
     with {:ok, %Session{} = session} <- Sessions.create_session(params) do
@@ -30,8 +31,12 @@ defmodule VgTrackWeb.SessionController do
   # end
 
   def update(conn, params) do
-    with {:ok, %Session{} = session} <- Sessions.verify_session(params) do
+    with {:ok, session} <- Sessions.verify_session(params) do
+      IO.inspect(session)
       render(conn, "show.json", session: session)
     end
   end
+
+  # {:ok, %Session{} = session}
+
 end

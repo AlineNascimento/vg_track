@@ -12,8 +12,7 @@ defmodule VgTrackWeb.SessionView do
 
   def render("session.json", %{session: session}) do
     %{
-      id: session.id,
-      user_id: session.user_id
+      session_id: session.id
     }
   end
 end

@@ -22,7 +22,7 @@ defmodule VgTrackWeb.FallbackController do
     |> render(:"404")
   end
 
-  # This clause is an example of how to handle resources that cannot be found.
+  # This clause is an example of how to handle resources that cannot be authorized
   def call(conn, {:error, :unauthorized}) do
     conn
     |> put_status(:unauthorized)
